@@ -24,11 +24,12 @@ namespace SecureWebApi
             var options = new JwtBearerAuthenticationOptions
             {
                 AllowedAudiences = new[] { "http://localhost:3817/resources" },
+                
                 TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidAudience = "http://localhost:3817/resources",
                     ValidIssuer = "http://localhost:3817",   // get from "issuer" in http://localhost:port/.well-known/openid-configuration
-
+                   
                     RequireExpirationTime = true,
                     IssuerSigningTokens = new List<SecurityToken>
                     {
@@ -42,6 +43,7 @@ namespace SecureWebApi
 
             app.UseJwtBearerAuthentication(options);
 
+           
 
             // simplified way to verify the token IF we use IdentityServer (nuget package: IdentityServer3.AccessTokenValidation)
 //            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions

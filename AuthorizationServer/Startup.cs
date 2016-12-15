@@ -5,6 +5,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Agile.Diagnostics.Loggers;
 using Agile.Diagnostics.Logging;
 using IdentityServer3.Core.Configuration;
 using Microsoft.Owin;
@@ -20,6 +21,7 @@ namespace AuthorizationServer
     {
         public void Configuration(IAppBuilder app)
         {
+            Logger.InitializeLogging(new List<ILogger> { new TraceLogger() }, LogLevel.All);
             try
             {
                 Logger.Debug("Configure AuthorizationServer");

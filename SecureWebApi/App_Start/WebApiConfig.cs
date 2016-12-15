@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Agile.Diagnostics.Logging;
+using IdentityModel;
 
 namespace SecureWebApi
 {
@@ -34,6 +36,7 @@ namespace SecureWebApi
             Logger.Debug("Request: {0}", request.RequestUri.AbsoluteUri);
             if(request.Headers?.Authorization != null) // DELETE THIS
                 Logger.Debug(request.Headers.Authorization.Parameter);
+            
 
             // Call the inner handler.
             var response = await base.SendAsync(request, cancellationToken);

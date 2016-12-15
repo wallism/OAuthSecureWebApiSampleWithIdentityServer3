@@ -17,6 +17,8 @@ namespace AuthorizationServer
 
     public class SampleInMemoryManager : ISampleIdentityManager
     {
+        private const string SecureWebApiSampleScope = "SecureWebApiSampleScope";
+
         public IEnumerable<Client> GetClients()
         {
             Logger.Debug(MethodBase.GetCurrentMethod().Name);
@@ -30,12 +32,15 @@ namespace AuthorizationServer
                         new Secret("bigsecret".Sha256())
                     },
                     ClientName = "my client name",
+                    // seconds the token will be valid for
+                    AccessTokenLifetime = 3600, // 1 hour (which is the default...but not necessarily recommended)
                     Flow = Flows.ResourceOwner,
                     AllowedScopes = new List<string>
                     {
                         Constants.StandardScopes.OpenId,
                         Constants.StandardScopes.Address,
-                        "read"
+                        SecureWebApiSampleScope,
+                        "UndefinedScope"
                     }
                 }
             };
@@ -52,7 +57,7 @@ namespace AuthorizationServer
                 StandardScopes.OfflineAccess,
                 new Scope
                 {
-                    Name = "read",
+                    Name = SecureWebApiSampleScope,
                     DisplayName = "Read User Data"
                 }, 
             };

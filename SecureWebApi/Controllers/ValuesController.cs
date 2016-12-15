@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IdentityModel;
 using System.Web.Http;
 
 namespace SecureWebApi.Controllers
 {
-    [RoutePrefix("api/Values")]
+    [RoutePrefix("api/values")]
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -21,6 +22,13 @@ namespace SecureWebApi.Controllers
 
         [Route("NewPath")]
         public string GetValue(string value)
+        {
+            return value;
+        }
+
+        [Route("scopetest")]
+        [Scope("SecureWebApiSampleScope")]
+        public string GetScopeTest(string value)
         {
             return value;
         }
